@@ -1,0 +1,73 @@
+
+
+
+
+WHAT IS ID-CHECKMATE
+
+ID-Checkmate is an innovative web based authentication / identification application that gets rid of the traditional username and password string mechanism and replaces it with a cool chess moves themed authentication User Interface.
+
+Furthermore, it eases the webmater's task of building an access control feature for websites from scratch. ID-Checkmate is very easy to use - The webmaster simply adds 3 lines of code on any php page he/she wishes to secure and ID-Checkmate does all the backend process of identifying the page visitor.
+
+In a nutshell, If you plan to manage a website where users log in or your website has a user login page that uses the traditional username and password string, you ought to try out ID-Checkmate
+
+
+HOW TO ADD ID-CHEKMATE AUTHORIZATION TO YOUR WEB PAGE
+
+step 1 - place access_control.php in the same directory as the php page you wish to protect and add the following php code at the beginning of the page:
+			
+		<?php include_once 'access_control.php'; ?>
+
+
+step 2 - Add the following javascript reference within the head tag of your HTML DOM
+
+		<script type = "text/javascript" src = "http://idcheckmate.tech/access_control.js"></script>
+
+
+step 3 - Add the following log out button anywhere within the body tag.
+
+		<button type = "button" onclick = "logOut('url_of_some_unrestricted_page');"> Log Out </button>
+
+
+Please note that 'url_of_some_unrestricted_page' is just a placeholder. You should replace it with the url of the web page you want to be loaded to the user after he/she has logged out. Have a look at the example files provided to see a live sample of how ID-Checkmate authentication was implemented on a page.
+
+
+HOW ID-CHECKMATE WORKS
+
+ID-Checkmate uses 2 main terms when authorising a user. They are:
+- A Starting Position - A position / state of arbitrary chess pieces on a regular 8 x 8 chessboard. (This doesn't have to be a valid chess position).
+- A Signature - A sequence of chess moves from the starting position. Please note these moves need not be valid chess moves.
+
+A move here can be defined as the movement of 1 piece from a square on the board to another square on the board (could displace another piece residing on the destination square or not; doesn't matter) or removed from the board entirely.
+
+First when a user signs up with ID-Checkmate, he/she is allowed to choose a starting position. The chosen starting position is binded to his/her user email or user account. Think of this starting position as a public key for that user. Anyone can know your starting position.
+
+Next, the user is requested to create his signature. The signature is a sequence of any number of chess positions created by making moves (again not necessarily valid moves) from the starting position selected.
+
+The signature chosen by a user (which as explained is an array of positions stored as FEN strings) is then serialised and hashed before sending it to ID-Checkmate database.
+
+After signing up with ID-Checkmate, a user is required to activate his account by following a link sent to his/her email. This step is just to ensure that the user does indeed own the email he/she had used to sign up on ID-Checkmate.
+
+Whenever a user tries to login, the starting position associated with his email is presented to him/her to enter his/her signature. When the signature is entered, the procedure for storing the signature is repeated, however in this case, a copy of the one stored under his email record is fetched from ID-Checkmate database and compared against the one he has just entered. A match grants access while a mismatch denies access.
+
+
+BENEFITS OF ID-CHECKMATE
+
+From the above definition of a move, it can easily be deduced that from the regular starting chess position where there are 32 pieces on the board, the number of possible positions after the 1st signature move is 32 x 64 (63 squares excluding the one the moving piece is residing on, plus off board = 64). After n moves, the number of possibilities is greater than (32 x 64) ^ (n - 1).
+
+As we see, the possibilities of a signature expands exponentially with every move. Hence, it is safe to say no modern day computer has the power to brute force a signature that consists of at least 5 moves provided there are sufficient pieces at the starting position (at least 5 pieces).
+
+Furthermore, if we compare this system to the traditional password string in use today, it is easy to see that a Signature of n moves from our example start position is stronger than a traditional password string of n characters length even if the string can contain special characters and numbers (All possible xters can't be up to 32 x 64).
+
+Another benefit of ID-Checkmate is that it does not suffer the 'harder to guess - easy to forget' nature of a passowrd string. While a password string like "h&6%$33#" can be very difficult for someone to guess, it also holds true that it can be very easy for the owner of the password to forget. The fact is that generally, humans are more comfortable with patterns and images than garbled text. This is probably why some people create password strings like "p4$$w0rd" and the likes. With ID-Checkmate, the signature itself is a pattern and though can be forgotten, one's unique starting position can be of great help in reminding one of his/her signature.
+
+ID-Checkmate was intentionally designed in a way that is easy for webmasters to integrate with their web pages. Only 3 lines of code hooks ID-Checkmate on any web page and provides a php variable for webmasters to access the email of the authorised visitor of their page.
+
+ID-Checkmate greatly simplifies the process of implementing access control on a website. Webmasters can simply manage records of their users in their database without having to fuss about passwords, authorization, encryption, security features when logging in and so on.
+
+Finally, by providing a variable to access the email of the page visitor, webmasters can build on top of ID-Checkmate authorization process. For example, say a webmaster wants to grant access to a particular web page to only certain people in his admin group.  He can simply add php code after ID-Checkmate authorization to compare the email of the page visitor to a list of admin emails. If the emails list contains the visitor email, grant access to the page otherwise deny access with simple if-else blocks.
+
+ID-Checkmate is completely free to use.
+
+If however, you still feel you want a personalised copy of ID-Checkmate residing on your own server, contact me on mustaphaothman2@hotmail.com
+
+Thank you and happy coding.
